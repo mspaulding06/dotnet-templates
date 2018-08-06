@@ -1,0 +1,6 @@
+.fake/
+build.fsx.lock
+packages/
+paket-files/
+obj/
+bin/

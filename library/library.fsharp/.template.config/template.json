@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "NWEA",
+  "classifications": ["Common", "Library"],
+  "name": "Class library",
+  "identity": "library.fsharp",
+  "groupIdentity": "library",
+  "shortName": "library",
+  "sourceName": "library.fsharp",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "F#",
+    "type": "project"
+  }
+}
