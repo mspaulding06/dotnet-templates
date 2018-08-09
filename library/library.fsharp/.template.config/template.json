@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "NWEA",
+  "author": "Matt Spaulding",
   "classifications": ["Common", "Library"],
   "name": "Class library",
   "identity": "library.fsharp",
