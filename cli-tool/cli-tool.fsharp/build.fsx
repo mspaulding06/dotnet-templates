@@ -11,7 +11,6 @@ open Fake.DotNet
 open Fake.IO
 open Fake.IO.Globbing.Operators
 open System.IO
-open System.Runtime.InteropServices
 
 Target.description "Cleanup Previous Build"
 Target.create "Clean" (fun _ ->
@@ -19,24 +18,17 @@ Target.create "Clean" (fun _ ->
     |> Shell.cleanDirs
 )
 
-let paketInstall =
-    let paketExe = Path.combine ".paket" "paket.exe"
-    let proc = {
-        ProcStartInfo.Create() with FileName = paketExe
-                                    Arguments = "install"
-                                    CreateNoWindow = false
-                                    WorkingDirectory = "."
-    }
-    Process.execSimple
-        (fun _ -> Process.withFramework(proc))
-        (System.TimeSpan.FromMinutes 5.0)
-    |> ignore
+Target.description "Paket Package Update"
+Target.create "Update" (fun _ ->
+    Shell.Exec("mono", ".paket/paket.exe update") |> ignore
+)
 
 Target.description "Paket Package Restore"
 Target.create "Restore" (fun _ ->
     if File.Exists("paket.lock")
         then Paket.restore (fun p -> { p with WorkingDir = "." })
-        else paketInstall
+        else Shell.Exec("mono", ".paket/paket.exe install")
+             |> ignore
 )
 
 Target.description "Dotnet Build"
@@ -71,7 +63,6 @@ open Fake.Core.TargetOperators
 "Clean"
     ==> "Restore"
     ==> "Build"
-    ==> "Install"
     ==> "All"
 
 Target.runOrDefault "All"

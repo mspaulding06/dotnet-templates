@@ -18,6 +18,11 @@ Target.create "Clean" (fun _ ->
     |> Shell.cleanDirs
 )
 
+Target.description "Paket Package Update"
+Target.create "Update" (fun _ ->
+    Shell.Exec("mono", ".paket/paket.exe update") |> ignore
+)
+
 Target.description "Paket Package Restore"
 Target.create "Restore" (fun _ ->
     if File.Exists("paket.lock")
